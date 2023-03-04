@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0
 
 ; Which monitor should zoom be displayed on?
-UseMonitor := 2
+UseMonitor := 1
 
 
 
@@ -45,8 +45,13 @@ catch
 
 ; If the window isn't on the correct monitor, make it so
 WinWait("Zoom ahk_class ZPContentViewWndClass", "", , "Zoom Meeting")
-WinGetPos &OutX, &OutY, &OutWidth, &OutHeight
-if ( OutX + OutWidth > MR || OutX < ML || OutY + OutHeight > MB || OutY < MT ){
-	WinMove (ML + 50), (MB - 300 - 50), 300, 300
-	WinMaximize		
+Sleep 5000
+if WinExist("Zoom ahk_class ZPContentViewWndClass", "", "Zoom Meeting"){
+	WinMoveBottom	
+	WinGetPos &OutX, &OutY, &OutWidth, &OutHeight
+	if ( OutX + OutWidth > MR || OutX < ML || OutY + OutHeight > MB || OutY < MT ){
+		WinMove (ML + 50), (MB - 300 - 50), 300, 300
+		WinMaximize	
+		WinMoveBottom	
+	}
 }
