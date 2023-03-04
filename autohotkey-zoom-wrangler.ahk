@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0
 
 ; AutoHotKey-Zoom-Wrangler
-; Version 0.0.2
+; Version 0.0.3
 ; Created by James Swift
 ; https://github.com/JamesSwift/AutoHotKey-Zoom-Wrangler
 
@@ -12,6 +12,7 @@ UseMonitor := 1
 
 ; Show zoom fullscreen on the monitor specified when the key is pressed.
 F9::{
+	DetectHiddenWindows 1
 	if WinExist("Zoom ahk_class ZPContentViewWndClass", "", "Zoom Meeting"){		
 		WinShow
 		WinActivate
@@ -22,6 +23,7 @@ F9::{
 
 ; Move zoom behind other applications when the key is pressed
 F10::{
+	DetectHiddenWindows 1
 	if WinExist("Zoom ahk_class ZPContentViewWndClass", "", "Zoom Meeting"){		
 		WinMoveBottom
 		WinHide
@@ -45,7 +47,6 @@ MakeFullscreen(){
 
 try
 {
-	DetectHiddenWindows 1
 	MonitorGet UseMonitor, &ML, &MT, &MR, &MB
 	MW := MR - ML
 	MH := MB - MT
@@ -73,6 +74,17 @@ try
 	WinWait("Zoom ahk_class ZPContentViewWndClass", "", , "Zoom Meeting")
 	WinMoveBottom
 	WinHide
+
+	; Hide the splash zoom window 
+	if WinExist("Zoom ahk_class ZPPTMainFrmWndClassEx", ""){
+		WinMoveBottom
+		WinMinimize
+	}
+
+	; Send the main zoom window to the back
+	; if WinExist("Zoom Meeting ahk_class ZPContentViewWndClass", ""){
+	; 	WinMoveBottom
+	; }
 	
 }
 catch
@@ -82,6 +94,7 @@ catch
 Persistent
 OnExit ExitFunc
 ExitFunc(ExitReason, ExitCode){
+	DetectHiddenWindows 1
 	if WinExist("Zoom ahk_class ZPContentViewWndClass", "", "Zoom Meeting"){
 		WinShow
 	}
