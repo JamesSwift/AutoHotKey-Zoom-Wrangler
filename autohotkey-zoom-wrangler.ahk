@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0
 
 ; Which monitor should zoom be displayed on?
-UseMonitor := 1
+UseMonitor := 2
 
 
 
@@ -16,7 +16,9 @@ Numpad1::{
 		;If window isn't fullscreen, make it so
 		if (OutWidth < MW || OutHeight < MH){
 			CoordMode "Mouse", "Screen"
+			MouseGetPos &StartX, &StartY
 			MouseClick "Left", Round( OutX + (OutWidth / 2) ), Round(OutY + (OutHeight / 2)), 2
+			MouseMove StartX, StartY
 		}
 		
 	}
