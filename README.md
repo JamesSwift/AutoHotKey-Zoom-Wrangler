@@ -1,5 +1,5 @@
 # AutoHotKey-Zoom-Wrangler
-This script shows or hides Zoom's "dual monitors" 2nd screen on a specified monitor using keyboard shortcuts. This is useful when you are displaying content to an audience on a display, and have another application showing pictures and videos on that display too. Using the keyboard shortcuts you can decide which application will be on top without having to drag the zoom window around, or use the taskbar to bring on application on top of the other.
+This script shows or hides Zoom's "dual monitors" 2nd screen on a specified monitor using keyboard shortcuts. This is useful when you are displaying content to an audience on a display, and have another application showing pictures and videos on that display too. Using the keyboard shortcuts you can decide which application will be on top without having to drag the zoom window onto and off of the secondary monitor or use the taskbar to bring on application on top of the other.
 
 # To use the script
 First, install the latest version of <a href="https://www.autohotkey.com/download/ahk-v2.exe">Auto Hot Key V2</a> on your system.
@@ -14,10 +14,10 @@ UseMonitor := 2
 
 Double click on the script to run it. You can then use the default keyboard shortcuts to control the zoom window:
 
-- Numberpad 1: Make the zoom 2nd screen full-screen in front of any other application
-- Numberpad 2: Send the zoom 2nd screen window behind any other windows on that monitor.
+- F9: Make the zoom 2nd screen full-screen in front of any other application
+- F10: Make the zoom 2nd screen window invisble
 
-You can change which key triggers the shortcuts by modifying `Numpad1::{` and `Numpad2::{` to be some other key, such as
+You can change which key triggers the shortcuts by modifying `F9::{` and `F10::{` to be some other key, such as
 ```
 F4::{
 ```
