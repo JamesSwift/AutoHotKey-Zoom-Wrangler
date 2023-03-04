@@ -1,34 +1,26 @@
 #Requires AutoHotkey v2.0
 
 ; AutoHotKey-Zoom-Wrangler
-; Version 0.0.1
+; Version 0.0.2
 ; Created by James Swift
 ; https://github.com/JamesSwift/AutoHotKey-Zoom-Wrangler
 
 
 ; Which monitor should zoom be displayed on?
-UseMonitor := 2
+UseMonitor := 1
 
 
-; Show zoom fullscreen on the monitor specified when the numpad1 key is pressed.
+; Show zoom fullscreen on the monitor specified when the key is pressed.
 F9::{
 	if WinExist("Zoom ahk_class ZPContentViewWndClass", "", "Zoom Meeting"){		
 		WinShow
 		WinActivate
 		WinMoveTop
-		WinGetPos &OutX, &OutY, &OutWidth, &OutHeight
-
-		;If window isn't fullscreen, make it so
-		if (OutWidth < MW || OutHeight < MH){
-			CoordMode "Mouse", "Screen"
-			MouseGetPos &StartX, &StartY
-			MouseClick "Left", Round( OutX + (OutWidth / 2) ), Round(OutY + (OutHeight / 2)), 2
-			MouseMove StartX, StartY
-		}
+		MakeFullscreen()		
 	}
 }
 
-; Move zoom behind other applications when numpad2 is pressed
+; Move zoom behind other applications when the key is pressed
 F10::{
 	if WinExist("Zoom ahk_class ZPContentViewWndClass", "", "Zoom Meeting"){		
 		WinMoveBottom
@@ -37,9 +29,20 @@ F10::{
 }
 
 
-; -- Startup Setup 
+MakeFullscreen(){
+	; If window isn't fullscreen, make it so
+	WinGetPos &OutX, &OutY, &OutWidth, &OutHeight
+	if (OutWidth < MW || OutHeight < MH){
+		CoordMode "Mouse", "Screen"
+		MouseGetPos &StartX, &StartY
+		MouseClick "Left", Round( OutX + (OutWidth / 2) ), Round(OutY + (OutHeight / 2)), 2
+		MouseMove StartX, StartY
+	}
+}
 
-; Confirm the specified monitor exists
+
+; ------------ Startup Setup ----------------
+
 try
 {
 	DetectHiddenWindows 1
@@ -47,28 +50,40 @@ try
 	MW := MR - ML
 	MH := MB - MT
 
-	; If the window isn't on the correct monitor, make it so
+	; Gve zoom a chance to settle down
 	WinWait("Zoom ahk_class ZPContentViewWndClass", "", , "Zoom Meeting")
 	Sleep 5000
+
+	; If the window isn't on the correct monitor, make it so
 	if WinExist("Zoom ahk_class ZPContentViewWndClass", "", "Zoom Meeting"){
-		WinMoveBottom	
+		
 		WinGetPos &OutX, &OutY, &OutWidth, &OutHeight
 		if ( OutX + OutWidth > MR || OutX < ML || OutY + OutHeight > MB || OutY < MT ){
-			WinMove (ML + 50), (MB - 300 - 50), 300, 300
-			WinMaximize	
-			WinMoveBottom	
+			WinMove (ML + 50), (MB - 300 - 50), 300, 300	
 		}
-		WinHide
-	}	
+
+		; Make the window maximized, then fullscreen it. Sleep required while zoom sorts itself out.
+		WinMaximize	
+		Sleep 1000
+		MakeFullscreen()
+		Sleep 1000
+	}
+
+	; Hide the window by default
+	WinWait("Zoom ahk_class ZPContentViewWndClass", "", , "Zoom Meeting")
+	WinMoveBottom
+	WinHide
+	
 }
 catch
-	MsgBox "Monitor " UseMonitor " doesn't exist. Check the Auto Hot Key config file."
+	MsgBox "An error occured with autohotkey-zoom-wrangler. Perhaps monitor " UseMonitor " doesn't exist? Check the config file."
 	
 
-OnExit ExitFunc
 Persistent
+OnExit ExitFunc
 ExitFunc(ExitReason, ExitCode){
 	if WinExist("Zoom ahk_class ZPContentViewWndClass", "", "Zoom Meeting"){
 		WinShow
 	}
 }
+
