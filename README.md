@@ -24,3 +24,5 @@ F4::{
 You can find out more about keyboard shortcuts in the <a href="https://www.autohotkey.com/docs/v2/KeyList.htm">documentation</a>.
 
 Once you are happy that the script is setup as you would like it, you will probably want to copy it to your startup folder so it will start automatically every time the PC is turned on. To find the startup folder, press `WIN + R` on your keyboard, then enter `shell:startup` and press OK.
+
+If you are trying to use zoom with JW Library and find that putting anything on top of it causes it to minimise itself, you might want to try this tool which prevents that behaviour: https://github.com/AntonyCorbett/JwlMediaWin 
