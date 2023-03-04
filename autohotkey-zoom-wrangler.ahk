@@ -22,7 +22,7 @@ Numpad1::{
 	}
 }
 
-; Move zoom to the back (presumably behind JW Library) when numpad2 is pressed
+; Move zoom behind other applications when numpad2 is pressed
 Numpad2::{
 	if WinExist("Zoom ahk_class ZPContentViewWndClass", "", "Zoom Meeting"){		
 		WinMoveBottom
@@ -44,7 +44,7 @@ catch
 	
 
 ; If the window isn't on the correct monitor, make it so
-WinWait("Zoom ahk_class ZPContentViewWndClass", "", 0, "Zoom Meeting")
+WinWait("Zoom ahk_class ZPContentViewWndClass", "", , "Zoom Meeting")
 WinGetPos &OutX, &OutY, &OutWidth, &OutHeight
 if ( OutX + OutWidth > MR || OutX < ML || OutY + OutHeight > MB || OutY < MT ){
 	WinMove (ML + 50), (MB - 300 - 50), 300, 300
