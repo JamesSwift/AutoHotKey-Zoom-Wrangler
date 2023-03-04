@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0
 
-;Which monitor should zoom be displayed on?
+; Which monitor should zoom be displayed on?
 UseMonitor := 2
 
 
 
-;Show zoom fullscreen on the monitor specified when the numpad1 key is pressed.
+; Show zoom fullscreen on the monitor specified when the numpad1 key is pressed.
 Numpad1::{
 	if WinExist("Zoom ahk_class ZPContentViewWndClass", "", "Zoom Meeting"){		
 
@@ -22,7 +22,7 @@ Numpad1::{
 	}
 }
 
-;Move zoom to the back (presumably behind JW Library) when numpad2 is pressed
+; Move zoom to the back (presumably behind JW Library) when numpad2 is pressed
 Numpad2::{
 	if WinExist("Zoom ahk_class ZPContentViewWndClass", "", "Zoom Meeting"){		
 		WinMoveBottom
@@ -32,7 +32,7 @@ Numpad2::{
 
 ; -- Startup Setup 
 
-; Confirm the monitor specified exists
+; Confirm the specified monitor exists
 try
 {
 	MonitorGet UseMonitor, &ML, &MT, &MR, &MB
@@ -43,7 +43,7 @@ catch
 	MsgBox "Monitor " UseMonitor " doesn't exist. Check the Auto Hot Key config file."
 	
 
-; If window isn't on correct monitor, make it so
+; If the window isn't on the correct monitor, make it so
 WinWait("Zoom ahk_class ZPContentViewWndClass", "", 0, "Zoom Meeting")
 WinGetPos &OutX, &OutY, &OutWidth, &OutHeight
 if ( OutX + OutWidth > MR || OutX < ML || OutY + OutHeight > MB || OutY < MT ){
