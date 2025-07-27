@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0
 
 ; AutoHotKey-Zoom-Wrangler
-; Version 0.0.3
+; Version 0.0.4
 ; Created by James Swift
 ; https://github.com/JamesSwift/AutoHotKey-Zoom-Wrangler
 
