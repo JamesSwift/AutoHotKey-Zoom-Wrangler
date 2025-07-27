@@ -29,4 +29,4 @@ Once you are happy that the script is setup as you would like it, you will proba
 
 If you are trying to use zoom with JW Library and find that putting any window on top of it causes it to minimize itself, you might want to try this tool which prevents that behavior: https://github.com/AntonyCorbett/JwlMediaWin 
 
-Note that this script will hide the zoom 2nd window a few seconds after you begin the zoom meeting by default - it won't show up in the taskbar, even though it is running. The only way to get it to display is to press F10, or to to stop the script (by right clicking on the green "H" icon in the system tray and pressing exit).
+Note that this script will hide the zoom 2nd window a few seconds after you begin the zoom meeting by default - it won't show up in the taskbar, even though it is running. The only way to get it to display is to press F10, or to stop the script (by right clicking on the green "H" icon in the system tray and pressing exit).
